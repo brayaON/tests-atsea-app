@@ -24,6 +24,12 @@
   },
   "homepage": "https://github.com/brayaON/tests-atsea-app#readme",
   "dependencies": {
+    "@types/chai": "^4.2.15",
+    "@types/mocha": "^8.2.1",
+    "@types/superagent": "^4.1.10",
+    "chai": "^4.3.3",
+    "mocha": "^8.3.0",
+    "superagent": "^6.1.0",
     "typescript": "^4.2.3"
   }
 }
