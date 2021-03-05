@@ -1,0 +1,27 @@
+{
+  "name": "tests-atsea",
+  "version": "1.0.0",
+  "description": "final project PRAXIS UNAL",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brayaON/tests-atsea-app.git"
+  },
+  "keywords": [
+    "js",
+    "testing",
+    "automation"
+  ],
+  "author": "Brayan Ortiz F., Camilo Loaiza F",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brayaON/tests-atsea-app/issues"
+  },
+  "homepage": "https://github.com/brayaON/tests-atsea-app#readme",
+  "dependencies": {
+    "typescript": "^4.2.3"
+  }
+}
