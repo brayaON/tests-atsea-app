@@ -9,5 +9,5 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
   },
-  
+  "exclude": ["node_modules"] 
 }

@@ -7,7 +7,7 @@
     "test": "mocha",
     "clean": "rm -rf dist report",
     "build": "npm run clean && tsc",
-    "test:api": "npm run build && mocha -t 5000 --reporter mochawesome --reporter-options reportDir=report --recursive ./test/**/*.js"
+    "test:api": "npm run build && mocha -t 5000 --reporter mochawesome --reporter-options reportDir=report --recursive ./dist/*.js"
   },
   "repository": {
     "type": "git",
