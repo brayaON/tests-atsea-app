@@ -1,4 +1,4 @@
-import { post, get } from 'superagent';
+import { post, get, put } from 'superagent';
 import { StatusCodes } from 'http-status-codes';
 import * as chai from 'chai';
 
@@ -11,13 +11,13 @@ describe('API tests', () => {
     describe('When creating a customer', () => {
         it('Then a customer should be created', async () => {
             const customer = {
-                "customerId": 0,
-                "name": "Sally Vallery",
+                "customerId": 2,
+                "name": "User Example",
                 "address": "144 Townsend, San Francisco 99999",
-                "email": "sally@example.com",
+                "email": "user@example.com",
                 "phone": "513 222 5555",
-                "username": "sallyv",
-                "password": "sallypassword",
+                "username": "userex",
+                "password": "userexpass",
                 "enabled": "true",
                 "role": "USER"
             };
@@ -30,11 +30,12 @@ describe('API tests', () => {
                     expect(response.body).to.have.property('customerId');
                     customerId = response.body.customerId;
                     expect(response.body).to.have.property('name');
-                    customerName = response.body.customerName;
+                    customerName = response.body.name;
                     expect(response.body).to.have.property('username');
                     customerUsername = response.body.username;
                 })
                 .catch(error => {
+                    console.log(error.status);
                     expect(error.status).to.equal(StatusCodes.CONFLICT);
                 });
         });
@@ -88,4 +89,37 @@ describe('API tests', () => {
                 });
         });
     });
+
+    describe('When updating a customer', () => {
+        it('Then a customer should be updated', async () => {
+            const customer = {
+                "customerId": 0,
+                "name": "Sally Vallery",
+                "address": "my new address",
+                "email": "sally@example.com",
+                "phone": "phone as string",
+                "username": "sallyv",
+                "password": "sallynewpassword",
+                "enabled": "true",
+                "role": "USER"
+            }
+
+            await put(`http://localhost:8080/api/customer/${customer.customerId}`)
+                .set('User-Agent', 'agent')
+                .set('Content-Type', 'application/json')
+                .send(customer)
+                .then(response => {
+                    console.log(response.status);
+                    expect(response.status).to.equal(StatusCodes.OK);
+                    expect(response.body).to.have.property('customerId');
+                    expect(response.body.address).to.equal(customer.address);
+                    expect(response.body.phone).to.equal(customer.phone);
+                    expect(response.body.password).to.equal(customer.password);
+                })
+                .catch(error => {
+                    expect(error.status).to.equal(StatusCodes.NOT_FOUND);
+                });
+        });
+
+    })
 })
