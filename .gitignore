@@ -131,4 +131,3 @@ dist
 
 ## Reports ##
 report
-rm -rf dist reports
