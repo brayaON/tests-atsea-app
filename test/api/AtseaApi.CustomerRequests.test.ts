@@ -17,11 +17,11 @@ describe('When creating a customer', () => {
             "enabled": "true",
             "role": "USER"
         };
-        const response = await post('https://localhost:8080/atsea/api/customer/')
+        const response = await post('http://localhost:8080/api/customer/')
             .set('User-Agent', 'agent')
             .set('Content-Type', 'application/json')
             .send(customer);
-        expect(response.status).to.equal(StatusCodes.OK);
+        expect(response.status).to.equal(StatusCodes.CREATED);
         expect(response.body).to.have.property('customerId');
     });
 });
