@@ -7,6 +7,7 @@ const expect = chai.expect;
 describe('API tests', () => {
     let customerId = 0;
     let customerName = "";
+    let customerUsername = "";
     describe('When creating a customer', () => {
         it('Then a customer should be created', async () => {
             const customer = {
@@ -30,6 +31,8 @@ describe('API tests', () => {
                     customerId = response.body.customerId;
                     expect(response.body).to.have.property('name');
                     customerName = response.body.customerName;
+                    expect(response.body).to.have.property('username');
+                    customerUsername = response.body.username;
                 })
                 .catch(error => {
                     expect(error.status).to.equal(StatusCodes.CONFLICT);
@@ -46,7 +49,7 @@ describe('API tests', () => {
                 .then(response => {
                     expect(response.status).to.equal(StatusCodes.OK);
                     expect(response.body).to.have.property('customerId');
-                    expect(response.body.customeId).to.equal(customerId);
+                    expect(response.body.customerId).to.equal(customerId);
                 })
                 .catch(error => {
                     expect(error.status).to.equal(StatusCodes.NOT_FOUND);
@@ -61,8 +64,24 @@ describe('API tests', () => {
                 .set('Content-Type', 'application/json')
                 .then(response => {
                     expect(response.status).to.equal(StatusCodes.OK);
-                    expect(response.body).to.have.property('customerName');
-                    expect(response.body.customeName).to.equal(customerName);
+                    expect(response.body).to.have.property('name');
+                    expect(response.body.name).to.equal(customerName);
+                })
+                .catch(error => {
+                    expect(error.status).to.equal(StatusCodes.NOT_FOUND);
+                });
+        });
+    });
+
+    describe('When getting a customer by username', () => {
+        it('Then a customer should be displayed', async () => {
+            await get(`http://localhost:8080/api/customer/username=${customerUsername}`)
+                .set('User-Agent', 'agent')
+                .set('Content-Type', 'application/json')
+                .then(response => {
+                    expect(response.status).to.equal(StatusCodes.OK);
+                    expect(response.body).to.have.property('username');
+                    expect(response.body.username).to.equal(customerUsername);
                 })
                 .catch(error => {
                     expect(error.status).to.equal(StatusCodes.NOT_FOUND);
