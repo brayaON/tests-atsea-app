@@ -21,7 +21,7 @@ describe('When creating a customer', () => {
             .set('User-Agent', 'agent')
             .set('Content-Type', 'application/json')
             .send(customer);
-        expect(response.status).to.equal(StatusCode.OK);
+        expect(response.status).to.equal(statusCode.OK);
         expect(response.body).to.have.property('customerId');
     });
 });
