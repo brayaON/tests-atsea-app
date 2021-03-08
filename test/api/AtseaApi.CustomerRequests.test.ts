@@ -6,6 +6,7 @@ const expect = chai.expect;
 
 describe('API tests', () => {
     let customerId = 0;
+    let customerName = "";
     describe('When creating a customer', () => {
         it('Then a customer should be created', async () => {
             const customer = {
@@ -27,6 +28,8 @@ describe('API tests', () => {
                     expect(response.status).to.equal(StatusCodes.CREATED);
                     expect(response.body).to.have.property('customerId');
                     customerId = response.body.customerId;
+                    expect(response.body).to.have.property('name');
+                    customerName = response.body.customerName;
                 })
                 .catch(error => {
                     expect(error.status).to.equal(StatusCodes.CONFLICT);
@@ -49,6 +52,21 @@ describe('API tests', () => {
                     expect(error.status).to.equal(StatusCodes.NOT_FOUND);
                 });
         });
+    });
 
+    describe('When getting a customer by name', () => {
+        it('Then a customer should be displayed', async () => {
+            await get(`http://localhost:8080/api/customer/name=${customerName}`)
+                .set('User-Agent', 'agent')
+                .set('Content-Type', 'application/json')
+                .then(response => {
+                    expect(response.status).to.equal(StatusCodes.OK);
+                    expect(response.body).to.have.property('customerName');
+                    expect(response.body.customeName).to.equal(customerName);
+                })
+                .catch(error => {
+                    expect(error.status).to.equal(StatusCodes.NOT_FOUND);
+                });
+        });
     });
 })
