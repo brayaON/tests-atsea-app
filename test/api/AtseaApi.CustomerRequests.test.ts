@@ -1,8 +1,8 @@
-const agent = require('superagent');
-const statusCode = require('http-status-codes');
-const chai = require('chai');
+import { post } from 'superagent';
+import { StatusCodes } from 'http-status-codes';
+import * as chai from 'chai';
 
-const { expect } = chai;
+const expect = chai.expect;
 
 describe('When creating a customer', () => {
     it('Then a customer should be created', async () => {
@@ -17,11 +17,11 @@ describe('When creating a customer', () => {
             "enabled": "true",
             "role": "USER"
         };
-        const response = await agent.post('https://localhost:8080/atsea/api/customer/')
+        const response = await post('https://localhost:8080/atsea/api/customer/')
             .set('User-Agent', 'agent')
             .set('Content-Type', 'application/json')
             .send(customer);
-        expect(response.status).to.equal(statusCode.OK);
+        expect(response.status).to.equal(StatusCodes.OK);
         expect(response.body).to.have.property('customerId');
     });
 });
