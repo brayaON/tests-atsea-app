@@ -1,4 +1,4 @@
-import { Config } from 'protractor';
+import { Config, browser } from 'protractor';
 
 const firefoxConfig = {
   browserName: 'firefox',
@@ -30,5 +30,6 @@ export const config: Config = {
     chromeOptions: {
       args: ['--headless', '--disable-gpu']
     }
-  }
+  },
+  getPageTimeout:30000,
 };

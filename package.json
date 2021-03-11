@@ -8,7 +8,7 @@
     "clean": "rm -rf dist report",
     "build": "npm run clean && tsc",
     "test:api": "npm run build && mocha -t 5000 --reporter mochawesome --reporter-options reportDir=report --recursive ./dist/*.js",
-    "test:uiheadless": "npm run build && protractor dist/protractor/headless.config.js"
+    "test:ui": "npm run build && protractor dist/protractor/headless.config.js"
   },
   "repository": {
     "type": "git",
