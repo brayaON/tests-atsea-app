@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "clean": "rm -rf dist report",
+    "clean": "rm -rf dist report mochawesome-reports",
     "build": "npm run clean && tsc",
-    "test:api": "npm run build && mocha -t 5000 --reporter mochawesome --reporter-options reportDir=report --recursive ./dist/*.js",
+    "test:api": "npm run build && mocha -t 5000 --reporter mochawesome --reporter-options reportDir=report --recursive ./dist/test/api/*.js",
     "test:ui": "npm run build && protractor dist/protractor/headless.config.js"
   },
   "repository": {

@@ -1,4 +1,4 @@
-import { Config, browser } from 'protractor';
+import { Config } from 'protractor';
 
 const firefoxConfig = {
   browserName: 'firefox',
