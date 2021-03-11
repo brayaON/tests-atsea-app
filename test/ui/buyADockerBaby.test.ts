@@ -1,4 +1,6 @@
 import { browser } from 'protractor';
+import * as chai from 'chai';
+const expect = chai.expect
 /*
 describe('When opening the API Page', () => {
     beforeEach(async () => {
@@ -17,7 +19,8 @@ describe('Given a SDET learning protractor', () => {
       });
   
       it('then should have a title', async () => {
-        await expect(browser.getTitle()).toEqual('Google');
+        const title = await browser.getTitle();
+        expect(title).to.equal('Google');
       });
     });
   });
