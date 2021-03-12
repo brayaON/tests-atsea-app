@@ -1,32 +1,36 @@
 import { browser, $ } from 'protractor';
-import { post } from 'superagent';
+import { post, del } from 'superagent';
 import * as chai from 'chai';
 const expect = chai.expect
 
-//let customerId = -1;
-
+let customerId = -1;
+let userName;
 describe('Purchase of a DockerBaby', () => {
 
   describe('When opening the API Page', () => {
     beforeEach(async () => {
-      await browser.get('http://192.168.1.111:8080/');
+      await browser.get('http://192.168.1.11:8080/');
       await browser.sleep(3000);
+      userName = Math.floor(Math.random() * 10);
       const customer = {
         "customerId": 0,
         "name": "user_name",
         "address": "user_address",
         "email": "user_email",
         "phone": "user_phone",
-        "username": "u",
+        "username": userName.toString(),
         "password": "u",
         "enabled": "true",
         "role": "USER"
       };
-      await post('http://192.168.1.111:8080/api/customer/')
+      await post('http://192.168.1.11:8080/api/customer/')
         .set('User-Agent', 'agent')
         .set('Content-Type', 'application/json')
-        .send(customer);
-      // customerId = response.body.customerId;
+        .send(customer)
+        .then(response => { customerId = response.body.customerId; })
+        .catch( error => { console.log(error.message)});
+      //console.log(response.status + "\n" + response.body + "\n" + response.error);
+      
     });
 
     it('then should have a title', async () => {
@@ -40,7 +44,7 @@ describe('Purchase of a DockerBaby', () => {
     it('Then the user should be logged in', async () => {
       await $('.buttonSection > div > button:nth-child(2)').click();
       await browser.sleep(3000);
-      await $('.loginFormRow > div:nth-child(1) > div > input').sendKeys('u');
+      await $('.loginFormRow > div:nth-child(1) > div > input').sendKeys(userName.toString());
       await $('.loginFormRow > div:nth-child(2) > div > input').sendKeys('u');
       await $('.loginFormButton > button:nth-child(1)').click();
       await browser.sleep(3000);
@@ -58,13 +62,13 @@ describe('Purchase of a DockerBaby', () => {
   });
 
   describe('When doing the payment process', () => {
-    /*
+    
     afterEach(async () => {
-      await del(`http://192.168.1.111:8080/api/customer/${customerId}`)
+      await del(`http://192.168.1.11:8080/api/customer/${customerId}`)
         .set('User-Agent', 'agent')
         .set('Content-Type', 'application/json');
     });
-    */
+
 
     it('Then the baby docker should be purchased', async () => {
       await $('.infoSection > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input').sendKeys('user_name');
