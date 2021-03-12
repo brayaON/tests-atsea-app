@@ -13,7 +13,7 @@ const firefoxConfig = {
 const chromeConfig = {
   browserName: 'chrome',
   chromeOptions: {
-    args: ['--headless', '--disable-gpu']
+    args: ['--headless', '--disable-gpu', '--window-size=1920,1080']
   },
   name: 'chrome-tests',
   shardTestFiles: true,
@@ -29,7 +29,12 @@ export const config: Config = {
   seleniumAddress: 'http://0.0.0.0:4444',
   SELENIUM_PROMISE_MANAGER: false,
   mochaOpts: {
-	  reporter: 'mochawesome-screenshots'
+    timeout: 18000,
+	  reporter: 'mochawesome-screenshots',
+    reporterOptions: {
+      reportName: "report",
+      multiReport: true,
+    }
   },
   getPageTimeout:30000,
   onPrepare: () => {
