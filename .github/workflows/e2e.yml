@@ -76,7 +76,7 @@ jobs:
         timeout: 60s
         script: | 
           cd run_selenium
-          docker stack deploy --compose-file docker-compose.yml atsea-selenium
+          docker stack deploy --compose-file docker-compose.yml atseaselenium
     - name: Running UI tests
       run: npm run test:ui
     - name: Upload reports to AWS bucket
