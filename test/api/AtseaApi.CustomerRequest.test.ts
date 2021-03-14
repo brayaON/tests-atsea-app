@@ -26,7 +26,7 @@ describe('Create Customer tests', () => {
             };
             customerName = customer.name;
             customerUsername = customer.username;
-            const response = await post(`${urlBase}/api/customer`)
+            const response = await post(`${urlBase}/api/customer/`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .send(customer);
