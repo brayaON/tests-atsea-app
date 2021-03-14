@@ -76,8 +76,8 @@ jobs:
         timeout: 60s
         script: | 
           cd run_selenium
-          docker-compose up -d
-    - name: Running API tests
+          docker stack deploy --compose-file docker-compose.yml atsea-selenium
+    - name: Running UI tests
       run: npm run test:ui
     - name: Upload reports to AWS bucket
       run: aws s3 sync ./mochawesome-report ${{ secrets.AWS_BUCKET }}/ui-tests-report
