@@ -7,6 +7,7 @@ const expect = chai.expect;
 let customerId = -1;
 let customerName = "";
 let customerUsername = "";
+let urlBase = "http://3.18.251.171:8080";
 
 describe('Create Customer tests', () => {
 
@@ -25,7 +26,7 @@ describe('Create Customer tests', () => {
             };
             customerName = customer.name;
             customerUsername = customer.username;
-            const response = await post('http://localhost:8080/api/customer/')
+            const response = await post(`${urlBase}/api/customer`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .send(customer);
@@ -48,7 +49,7 @@ describe('Create Customer tests', () => {
                 "enabled": "true",
                 "role": "USER"
             };
-            await post('http://localhost:8080/api/customer/')
+            await post(`${urlBase}/api/customer/`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .send(customer)
@@ -64,7 +65,7 @@ describe('Get customer tests', () => {
 
     describe('When getting a customer by a valid id', () => {
         it('Then a customer should be displayed', async () => {
-            const response = await get(`http://localhost:8080/api/customer/${customerId}`)
+            const response = await get(`${urlBase}/api/customer/${customerId}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
             expect(response.status).to.equal(StatusCodes.OK);
@@ -76,7 +77,7 @@ describe('Get customer tests', () => {
     describe('When getting a customer by an invalid id', () => {
         let notFoundId = -1;
         it('Then a customer shouldn\'t be displayed', async () => {
-            await get(`http://localhost:8080/api/customer/${notFoundId}`)
+            await get(`${urlBase}/api/customer/${notFoundId}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .catch(error => {
@@ -87,7 +88,7 @@ describe('Get customer tests', () => {
 
     describe('When getting a customer by valid name', () => {
         it('Then a customer should be displayed', async () => {
-            const response = await get(`http://localhost:8080/api/customer/name=${customerName}`)
+            const response = await get(`${urlBase}/api/customer/name=${customerName}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json');
             expect(response.status).to.equal(StatusCodes.OK);
@@ -99,7 +100,7 @@ describe('Get customer tests', () => {
     describe('When getting a customer by an invalid name', () => {
         let notFoundName = "thisNameDoesNotExists";
         it('Then a customer shouldn\'t be displayed', async () => {
-            await get(`http://localhost:8080/api/customer/name=${notFoundName}`)
+            await get(`${urlBase}/api/customer/name=${notFoundName}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .catch(error => {
@@ -110,7 +111,7 @@ describe('Get customer tests', () => {
 
     describe('When getting a customer by valid username', () => {
         it('Then a customer should be displayed', async () => {
-            const response = await get(`http://localhost:8080/api/customer/username=${customerUsername}`)
+            const response = await get(`${urlBase}/api/customer/username=${customerUsername}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json');
             expect(response.status).to.equal(StatusCodes.OK);
@@ -122,7 +123,7 @@ describe('Get customer tests', () => {
     describe('When getting a customer by an invalid username', () => {
         let notFoundUsername = "thisUsernameDoesNotExists";
         it('Then a customer shouldn\'t be displayed', async () => {
-            await get(`http://localhost:8080/api/customer/username=${notFoundUsername}`)
+            await get(`${urlBase}/api/customer/username=${notFoundUsername}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .catch(error => {
@@ -148,7 +149,7 @@ describe('Update customer tests', () => {
                 "enabled": "true",
                 "role": "USER"
             };
-            const response = await put(`http://localhost:8080/api/customer/${customerId}`)
+            const response = await put(`${urlBase}/api/customer/${customerId}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .send(customer);
@@ -175,7 +176,7 @@ describe('Update customer tests', () => {
                 "role": "USER"
             };
 
-            await put(`http://localhost:8080/api/customer/${notFoundId}`)
+            await put(`${urlBase}/api/customer/${notFoundId}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .send(customer)
@@ -191,7 +192,7 @@ describe('Delete customer tests', () => {
 
     describe('When deleting a customer by a valid id', () => {
         it('Then the customer should be deleted', async () => {
-            const response = await del(`http://localhost:8080/api/customer/${customerId}`)
+            const response = await del(`${urlBase}/api/customer/${customerId}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json');
             expect(response.status).to.equal(StatusCodes.NO_CONTENT);
@@ -201,7 +202,7 @@ describe('Delete customer tests', () => {
     describe('When deleting a customer by an invalid id', () => {
         let notFoundId = -1;
         it('Then a customer shouldn\'t be deleted', async () => {
-            await del(`http://localhost:8080/api/customer/${notFoundId}`)
+            await del(`${urlBase}/api/customer/${notFoundId}`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json')
                 .catch(error => {
@@ -212,7 +213,7 @@ describe('Delete customer tests', () => {
 
     describe('When deleting all customers', () => {
         it('Then all customers should be deleted', async () => {
-            const response = await del(`http://localhost:8080/api/customer/`)
+            const response = await del(`${urlBase}/api/customer/`)
                 .set('User-Agent', 'agent')
                 .set('Content-Type', 'application/json');
             expect(response.status).to.equal(StatusCodes.NO_CONTENT);
