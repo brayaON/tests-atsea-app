@@ -26,7 +26,7 @@ export const config: Config = {
   multiCapabilities,
   framework: 'mocha',
   specs: [ '../test/ui/*js' ],
-  seleniumAddress: 'http://0.0.0.0:4444',
+  seleniumAddress: 'http://3.18.251.171:4444',
   SELENIUM_PROMISE_MANAGER: false,
   mochaOpts: {
     timeout: 18000,
