@@ -5,11 +5,13 @@ const expect = chai.expect
 
 let customerId = -1;
 let userName;
+let urlBase = "http://3.18.251.171:8080";
+
 describe('Purchase of a DockerBaby', () => {
 
   describe('When opening the API Page', () => {
     beforeEach(async () => {
-      await browser.get('http://192.168.1.11:8080/');
+      await browser.get(urlBase);
       await browser.sleep(3000);
       userName = Math.floor(Math.random() * 10);
       const customer = {
@@ -23,7 +25,7 @@ describe('Purchase of a DockerBaby', () => {
         "enabled": "true",
         "role": "USER"
       };
-      await post('http://192.168.1.11:8080/api/customer/')
+      await post(`${urlBase}/api/customer/`)
         .set('User-Agent', 'agent')
         .set('Content-Type', 'application/json')
         .send(customer)
@@ -64,7 +66,7 @@ describe('Purchase of a DockerBaby', () => {
   describe('When doing the payment process', () => {
     
     afterEach(async () => {
-      await del(`http://192.168.1.11:8080/api/customer/${customerId}`)
+      await del(`${urlBase}/api/customer/${customerId}`)
         .set('User-Agent', 'agent')
         .set('Content-Type', 'application/json');
     });
