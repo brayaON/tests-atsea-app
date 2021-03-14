@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "clean": "rm -rf dist report mochawesome-reports",
+    "clean": "rm -rf dist mochawesome-report",
     "build": "npm run clean && tsc",
     "test:api": "npm run build && mocha -t 5000 --reporter mochawesome --recursive ./dist/test/api/*.js",
     "test:ui": "npm run build && protractor dist/protractor/headless.config.js"
