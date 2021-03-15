@@ -31,7 +31,6 @@ describe('Purchase of a DockerBaby', () => {
         .send(customer)
         .then(response => { customerId = response.body.customerId; })
         .catch( error => { console.log(error.message)});
-      //console.log(response.status + "\n" + response.body + "\n" + response.error);
       
     });
 
@@ -101,9 +100,3 @@ describe('Purchase of a DockerBaby', () => {
   });
 
 });
-
-/*afterEach(async () => {
-    await del(`http://localhost:8080/api/customer/${customerId}`)
-      .set('User-Agent', 'agent')
-      .set('Content-Type', 'application/json');
-  });*/
